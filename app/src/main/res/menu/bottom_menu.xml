@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_class"
+        android:icon = "@drawable/baseline_schedule_24"
+        android:title = "Class Schedule"/>
+    <item
+        android:id="@+id/bottom_test"
+        android:icon = "@drawable/baseline_assessment_24"
+        android:title = "Tests"/>
+    <item
+        android:id="@+id/bottom_check"
+        android:icon = "@drawable/baseline_checklist_24"
+        android:title = "To-Do"/>
+</menu>
