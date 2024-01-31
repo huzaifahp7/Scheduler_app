@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    tools:context=".Test">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Class Schedule"
+        android:text = "Exams"
+        android:textSize = "36sp"
         android:textColor="@color/purple_700"
-        android:textSize="36sp" />
+        android:layout_centerInParent="true"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

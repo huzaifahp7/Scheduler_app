@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Box for Sunday -->
+    <LinearLayout
+        android:id="@+id/sundayBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/darker_gray"
+        android:padding="16dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- Add your Sunday content here -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunday" />
+
+        <CalendarView
+            android:id="@+id/sundayCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Repeat the above block for the rest of the days of the week (Monday to Saturday) -->
+
+    <!-- Box for Monday -->
+    <LinearLayout
+        android:id="@+id/mondayBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/darker_gray"
+        android:padding="16dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- Add your Monday content here -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monday" />
+
+        <CalendarView
+            android:id="@+id/mondayCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Continue this pattern for the rest of the days -->
+
+</LinearLayout>
