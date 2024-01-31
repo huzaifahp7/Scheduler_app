@@ -1,61 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <!-- Box for Sunday -->
-    <LinearLayout
-        android:id="@+id/sundayBox"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@android:color/darker_gray"
-        android:padding="16dp"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_height="wrap_content">
 
-        <!-- Add your Sunday content here -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sunday" />
-
-        <CalendarView
-            android:id="@+id/sundayCalendarView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <!-- Dynamic day blocks -->
+            <!-- Repeat this block for each day of the week -->
+            <LinearLayout
+                android:id="@+id/dayContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-    <!-- Repeat the above block for the rest of the days of the week (Monday to Saturday) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Day Label" />
 
-    <!-- Box for Monday -->
-    <LinearLayout
-        android:id="@+id/mondayBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@android:color/darker_gray"
-        android:padding="16dp"
-        android:clickable="true"
-        android:focusable="true">
+                <!-- Dynamic list of assignments for the day -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <!-- Add your Monday content here -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monday" />
+                    <!-- Repeat this TextView for each assignment -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Assignment Details" />
+                    <!-- Add more TextViews or a custom layout for each assignment -->
 
-        <CalendarView
-            android:id="@+id/mondayCalendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- End of day block -->
+        </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
+</RelativeLayout>
 
-    <!-- Continue this pattern for the rest of the days -->
-
-</LinearLayout>
