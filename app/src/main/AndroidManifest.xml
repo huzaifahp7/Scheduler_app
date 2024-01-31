@@ -15,10 +15,10 @@
         android:theme="@style/Theme.Scheduler_app"
         tools:targetApi="31">
         <activity
-            android:name=".Todo"
+            android:name=".ToDoFragment"
             android:exported="false" />
         <activity
-            android:name=".Test"
+            android:name=".ExamFragment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

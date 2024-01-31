@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/home_menu_item"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"/>
     <item
         android:id="@+id/bottom_class"
         android:icon = "@drawable/baseline_schedule_24"
@@ -13,4 +16,8 @@
         android:id="@+id/bottom_check"
         android:icon = "@drawable/baseline_checklist_24"
         android:title = "To-Do"/>
+    <item
+        android:id="@+id/bottom_assign"
+        android:icon = "@drawable/ic_assignment"
+        android:title = "Assignments"/>
 </menu>

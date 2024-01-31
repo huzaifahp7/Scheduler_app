@@ -6,11 +6,16 @@ public class ExamModel implements Serializable {
     private String date;
     private String time;
     private String location;
+    private String title;
 
-    public ExamModel(String date, String time, String location) {
+    public ExamModel(String title, String date, String time, String location) {
         this.date = date;
         this.time = time;
         this.location = location;
+        this.title = title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDate(String date) {
@@ -35,6 +40,10 @@ public class ExamModel implements Serializable {
 
     public String getLocation() {
         return location;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
 

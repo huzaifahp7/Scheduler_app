@@ -1,66 +1,67 @@
 package com.example.scheduler_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.Fragment;
+
+import android.view.MenuItem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toolbar;
 
-import com.example.scheduler_app.ui.main.MainFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton examButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //examButton = findViewById(R.id.examButton);
-        //ExamModel initialExamModel = new ExamModel("Sample Date", "Sample Time", "Sample Location");
-        // Set initial fragment on app launch
-        //showFragment(ExamModelFragment.newInstance(initialExamModel));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        // Navigation code
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_class);
-
-        bottomNavigationView.setOnItemSelectedListener(item ->{
+        bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.bottom_class){
-                return true;}
-            else if (id == R.id.bottom_test){
-                    startActivity(new Intent(getApplicationContext(), Test.class));
-                    finish();
-            return true;}
-            else if(id == R.id.bottom_check){
-                startActivity(new Intent(getApplicationContext(), Todo.class));
-                finish();
-                return true;}
-            return false;
+            if (id == R.id.bottom_class) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new CourseFragment()) // Replace ClassFragment with your actual class fragment
+                        .commit();
+            } else if(id == R.id.home_menu_item){
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new HomeFragment())
+                        .commit();
+            } else if (id == R.id.bottom_test) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new ExamFragment())
+                        .commit();
+            } else if (id == R.id.bottom_assign) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new AssignmentFragment())
+                        .commit();
+            } else if (id == R.id.bottom_check) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new ToDoFragment()) // Use ToDoFragment as a fragment, not an activity
+                        .commit();
+            }
+
+            return true;
         });
 
-        // Set click listeners for buttons
-//        examButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ExamModel newExamModel = new ExamModel("New Date", "New Time", "New Location");
-//                showFragment(ExamModelFragment.newInstance(newExamModel));
-//            }
-//        });
 
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+        }
+    }
 
-        // Add more click listeners for additional buttons/icons as needed
-    //}
-
-   /// private void showFragment(Fragment fragment) {
-      //  FragmentManager fragmentManager = getSupportFragmentManager();
-        //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentTransaction.replace(R.id.fragmentContainer, fragment);
-        //fragmentTransaction.addToBackStack(null);  // Optional: Add to back stack for navigation
-        //fragmentTransaction.commit();
+    private void setSupportActionBar(Toolbar toolbar) {
     }
 }
