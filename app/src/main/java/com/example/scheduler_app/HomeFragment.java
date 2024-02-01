@@ -27,13 +27,6 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         cV = rootView.findViewById(R.id.calendarView);
-        add = rootView.findViewById(R.id.addExam);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddClass();
-            }
-        });
         cV.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -45,13 +38,7 @@ public class HomeFragment extends Fragment {
         });
         return rootView;
     }
-    public void AddClass(){
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new Add_Exam()) // Replace ClassFragment with your actual class fragment
-                .commit();
 
-
-    }
 
     // If you need any additional setup or event handling, add it here.
     // For example, if you want to handle dates selected in the CalendarView,

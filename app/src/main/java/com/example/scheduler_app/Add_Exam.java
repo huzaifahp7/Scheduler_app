@@ -35,8 +35,6 @@ public class Add_Exam extends Fragment {
         return root;
     }
     public void doneClass(){
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment()) // Replace ClassFragment with your actual class fragment
-                .commit();
+        getParentFragmentManager().popBackStack();
     }
 }
