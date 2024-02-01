@@ -46,5 +46,15 @@
         </LinearLayout>
     </ScrollView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addAssignment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="325dp"
+        android:layout_marginBottom="108dp"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_input_add"/>
+
 </RelativeLayout>
 
