@@ -1,5 +1,6 @@
 package com.example.scheduler_app;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import android.database.sqlite.SQLiteDatabase;
+
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -55,8 +58,7 @@ public class ExamFragment extends Fragment {
                 .replace(R.id.fragment_container, new Add_Exam())
                 .addToBackStack(null)// Replace ClassFragment with your actual class fragment
                 .commit();
-
-
     }
+
 
 }
