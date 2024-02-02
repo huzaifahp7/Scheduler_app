@@ -11,18 +11,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AssignmentFragment extends Fragment {
 
+    private FloatingActionButton add;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_assignment, container, false);
         populateAssignments(view);
+        add = view.findViewById(R.id.addAssignment);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddClass();
+            }
+        });
         return view;
     }
 
@@ -46,6 +56,13 @@ public class AssignmentFragment extends Fragment {
         }
 
         return assignments;
+    }
+
+    public void AddClass(){
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new Add_Exam())
+                .addToBackStack(null)// Replace ClassFragment with your actual class fragment
+                .commit();
     }
 }
 

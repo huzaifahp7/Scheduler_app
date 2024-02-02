@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,14 @@ public class ToDoFragment extends Fragment {
         return items;
     }
 
+    private FloatingActionButton add;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_todo, container, false);
+
+        add = view.findViewById(R.id.addTodo);
 
         ListView listViewToDo = view.findViewById(R.id.listViewToDo);
         List<String> toDoItems = getToDoItems(); // Replace this with actual to-do items fetching logic
@@ -41,6 +45,20 @@ public class ToDoFragment extends Fragment {
                 android.R.layout.simple_list_item_1, toDoItems);
         listViewToDo.setAdapter(adapter);
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddClass();
+            }
+        });
+
         return view;
+    }
+
+    public void AddClass(){
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new Add_Exam())
+                .addToBackStack(null)// Replace ClassFragment with your actual class fragment
+                .commit();
     }
 }
