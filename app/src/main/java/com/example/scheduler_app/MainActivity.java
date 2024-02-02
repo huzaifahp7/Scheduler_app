@@ -61,7 +61,4 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
     }
-
-    private void setSupportActionBar(Toolbar toolbar) {
-    }
 }

@@ -53,7 +53,7 @@ public class CourseFragment extends Fragment {
     }
     public void AddClass(){
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new Add_Exam())
+                .replace(R.id.fragment_container, new Add_Course())
                 .addToBackStack(null)// Replace ClassFragment with your actual class fragment
                 .commit();
 

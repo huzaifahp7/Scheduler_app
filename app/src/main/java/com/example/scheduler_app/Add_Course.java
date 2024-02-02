@@ -20,12 +20,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * Use the {@link Add_Exam#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Add_Exam extends Fragment {
+public class Add_Course extends Fragment {
 
     private FloatingActionButton done;
-    private EditText addExam;
+    private EditText addClass;
+    private EditText addProfessor;
     private EditText addLocation;
-    private EditText addDate;
+    private EditText addDays;
     private EditText addTime;
     private MyDatabaseHelper dbHelper;
 
@@ -33,12 +34,13 @@ public class Add_Exam extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_add__exam, container, false);
+        View root = inflater.inflate(R.layout.fragment_add_course, container, false);
         done = root.findViewById(R.id.floatingActionButton);
-        addExam = root.findViewById(R.id.editTextUsername);
-        addLocation = root.findViewById(R.id.editTextUsername3);
-        addDate = root.findViewById(R.id.editTextUsername1);
-        addTime = root.findViewById(R.id.editTextUsername2);
+        addClass = root.findViewById(R.id.editTextUsername);
+        addProfessor = root.findViewById(R.id.editTextUsername1);
+        addLocation = root.findViewById(R.id.editTextUsername4);
+        addDays = root.findViewById(R.id.editTextUsername2);
+        addTime = root.findViewById(R.id.editTextUsername3);
 
         dbHelper = new MyDatabaseHelper(getContext());
 
@@ -51,18 +53,19 @@ public class Add_Exam extends Fragment {
         return root;
     }
     public void doneClass(){
-        String course = addExam.getText().toString();
+        String course = addClass.getText().toString();
+        String prof =addProfessor.getText().toString();
         String loc = addLocation.getText().toString();
-        String date = addDate.getText().toString();
+        String days = addDays.getText().toString();
         String time = addTime.getText().toString();
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
         // Prepare the content values to be inserted
-        //Need to make separate sql table for all fragments
         ContentValues values = new ContentValues();
         values.put("course", course);
+        values.put("professor", prof);
         values.put("time", time);
-        values.put("date", date);
+        values.put("date", days);
         values.put("location", loc);
 
         // Insert the values into the table
@@ -70,7 +73,7 @@ public class Add_Exam extends Fragment {
 
         // Close the database connection
         database.close();
-        Toast.makeText(getActivity(), String.format("You have a %s Exam on %s %s at %s.", course, date, time, loc), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), String.format("You have taken %s of prof %s on %s %s at %s.", course, prof, time, days, loc), Toast.LENGTH_SHORT).show();
         getParentFragmentManager().popBackStack();
     }
 }

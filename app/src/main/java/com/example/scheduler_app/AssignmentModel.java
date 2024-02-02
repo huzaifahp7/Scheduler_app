@@ -4,11 +4,13 @@ public class AssignmentModel {
     private String title;
     private String date;
     private String subject;
+    private String time;
 
-    public AssignmentModel(String title, String date, String subject) {
+    public AssignmentModel(String title, String subject, String date, String time) {
         this.title = title;
         this.date = date;
         this.subject = subject;
+        this.time = time;
     }
 
     public String getTitle() {
@@ -29,6 +31,14 @@ public class AssignmentModel {
 
     public String getSubject() {
         return subject;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setSubject(String subject) {

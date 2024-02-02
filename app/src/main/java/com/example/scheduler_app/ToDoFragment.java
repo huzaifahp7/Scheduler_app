@@ -57,7 +57,7 @@ public class ToDoFragment extends Fragment {
 
     public void AddClass(){
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new Add_Exam())
+                .replace(R.id.fragment_container, new Add_ToDo())
                 .addToBackStack(null)// Replace ClassFragment with your actual class fragment
                 .commit();
     }
