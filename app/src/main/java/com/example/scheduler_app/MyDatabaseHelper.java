@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -132,7 +132,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     //CODE FOR ASSIGNMENTS:
-    public void addAssignment(String name, String subject, String time, String date) {
+    public void addAssignment(String name, String subject, String date, String time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
@@ -144,9 +144,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getAllAssignments() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM Assignment", null);
+        return db.rawQuery("SELECT * FROM Assignment ORDER BY date ASC", null);
     }
-    public int updateAssignment(int id, String name, String subject, String time, String date) {
+    public int updateAssignment(int id, String name, String subject, String date, String time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
