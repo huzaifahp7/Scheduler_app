@@ -6,90 +6,141 @@
     android:layout_height="match_parent"
     tools:context=".Add_Assignment">
 
+    <!-- Assignment Name -->
+
+    <!-- Subject -->
+
+    <!-- Date Pickers -->
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="300dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-light"
         android:text="Task:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#2196F3"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="32dp" />
+
+    <EditText
+        android:id="@+id/editTextTask"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:hint="Enter the Task's name"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="#050505"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewDate"
+        tools:layout_editor_absoluteY="16dp" />
+
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="300dp"
-        android:text="Due Time:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1" />
-
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="300dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="104dp"
+        android:fontFamily="sans-serif-light"
         android:text="Due Date:"
+        android:textColor="#2196F3"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTask" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerDay"
+        android:layout_width="51dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toEndOf="@id/textViewDate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTask" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerMonth"
+        android:layout_width="51dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="0dp"
+        app:layout_constraintStart_toEndOf="@+id/numberPickerDay"
+        app:layout_constraintTop_toTopOf="@+id/numberPickerDay" />
+
+    <!-- Time Pickers -->
+
+    <NumberPicker
+        android:id="@+id/numberPickerYear"
+        android:layout_width="51dp"
+        android:layout_height="140dp"
+        app:layout_constraintStart_toEndOf="@+id/numberPickerMonth"
+        app:layout_constraintTop_toTopOf="@+id/numberPickerMonth" />
+
+    <!-- Done Button -->
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="232dp"
+        android:text="Due Time:"
+        android:textColor="#2196F3"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerHour"
+        android:layout_width="51dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="52dp"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintStart_toEndOf="@id/textViewTime"
+        app:layout_constraintTop_toBottomOf="@+id/numberPickerDay"
+        app:layout_constraintVertical_bias="0.632" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerMinute"
+        android:layout_width="51dp"
+        android:layout_height="140dp"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintStart_toEndOf="@id/numberPickerHour"
+        app:layout_constraintTop_toTopOf="@+id/numberPickerHour"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonAmPm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="8dp"
+        android:checked="true"
+        android:textColor="#2196F3"
+        android:textOff="AM"
+        android:textOn="PM"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-
-    <EditText
-        android:id="@+id/editTextUsername"
-        android:layout_width="236dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="50dp"
-        android:hint="Enter the name of the task:"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:singleLine="true"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    <EditText
-        android:id="@+id/editTextUsername2"
-        android:layout_width="236dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="50dp"
-        android:hint="Enter the time the task is due"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:singleLine="true"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername1" />
-
-
-    <EditText
-        android:id="@+id/editTextUsername1"
-        android:layout_width="236dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="50dp"
-        android:hint="Enter the date the task is due"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:singleLine="true"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/numberPickerMinute"
+        app:layout_constraintTop_toTopOf="@+id/numberPickerMinute" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="92dp"
         android:clickable="true"
         android:src="?android:attr/textCheckMark"
+        app:backgroundTint="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

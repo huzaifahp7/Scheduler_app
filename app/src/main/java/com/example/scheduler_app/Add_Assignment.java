@@ -15,6 +15,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
@@ -111,6 +112,34 @@ public class Add_Assignment extends Fragment {
         } else {
             // Show a message if any field is empty
             Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Hide the navigation bar
+        hideNavigationBar();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Show the navigation bar
+        showNavigationBar();
+    }
+
+    private void hideNavigationBar() {
+        // Assuming you're using a BottomNavigationView
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNavView);
+        if (navBar != null) {
+            navBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void showNavigationBar() {
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNavView);
+        if (navBar != null) {
+            navBar.setVisibility(View.VISIBLE);
         }
     }
 }

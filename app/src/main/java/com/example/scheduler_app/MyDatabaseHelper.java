@@ -6,10 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -45,9 +48,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT," +
                 "professor TEXT," +
-                "time TEXT," +
-                "date TEXT," +
-                "location TEXT);");
+                "venue TEXT," +
+                "days TEXT," +
+                "startTime TEXT," +
+                "endTime TEXT);");
     }
     public void openDatabase() {
         this.getWritableDatabase();
@@ -66,15 +70,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     //Code for COURSES
-    public void addCourse(String name, String professor, String time, String date, String location) {
+    public void addCourse(String name, String professor, String venue, String days, String startTime, String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("professor", professor);
-        values.put("time", time);
-        values.put("date", date);
-        values.put("location", location);
-
+        values.put("venue", venue);
+        values.put("days", days);
+        values.put("startTime", startTime);
+        values.put("endTime", endTime);
         db.insert("Course", null, values);
         db.close();
     }
@@ -82,14 +86,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM Course", null);
     }
-    public int updateCourse(int id, String name, String professor, String time, String date, String location) {
+    public int updateCourse(int id, String name, String professor, String venue, String days, String startTime, String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("professor", professor);
-        values.put("time", time);
-        values.put("date", date);
-        values.put("location", location);
+        values.put("venue", venue);
+        values.put("days", days);
+        values.put("startTime", startTime);
+        values.put("endTime", endTime);
 
         return db.update("Course", values, "_id = ?", new String[]{String.valueOf(id)});
     }
@@ -97,6 +102,67 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("Course", "_id = ?", new String[]{String.valueOf(id)});
         db.close();
+    }
+    public List<CourseModel> getCoursesForDay(String day) {
+        List<CourseModel> courses = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Query the database for courses on the specified day
+        Cursor cursor = db.rawQuery("SELECT * FROM Course WHERE days LIKE ?", new String[]{"%" + day + "%"});
+
+
+
+        // Process the cursor and populate the courses list
+        if (cursor.moveToFirst()) {
+            do {
+                int dayIdx = cursor.getColumnIndex("days");
+                String days = "";
+                if (dayIdx!=-1) {
+                    days = cursor.getString(dayIdx);
+                }
+                if (days != null && days.contains(day)) {
+                    int id = 0;
+                    String name = "";
+                    String professor = "";
+                    String venue = "";
+                    String startTime = "";
+                    String endTime = "";
+
+                    // Assuming CourseModel has a constructor like CourseModel(id, name, professor, time, day, venue)
+                    int idIdx = (cursor.getColumnIndex("_id"));
+                    int nameIdx = cursor.getColumnIndex("name");
+                    int professorIdx = (cursor.getColumnIndex("professor"));
+                    int startTimeIdx = (cursor.getColumnIndex("startTime"));
+                    int endTimeIdx = (cursor.getColumnIndex("endTime"));
+                    int venueIdx = (cursor.getColumnIndex("venue"));
+
+
+                    if (idIdx != -1) {
+                        id = (cursor.getInt(idIdx));
+                    }
+                    if (nameIdx != -1) {
+                        name = cursor.getString(nameIdx);
+                    }
+                    if (professorIdx != -1) {
+                        professor = cursor.getString(professorIdx);
+                    }
+                    if (venueIdx != -1) {
+                        venue = cursor.getString(venueIdx);
+                    }
+                    if (startTimeIdx != -1) {
+                        startTime = cursor.getString(startTimeIdx);
+                    }
+                    if (startTimeIdx != -1) {
+                        endTime = cursor.getString(endTimeIdx);
+                    }
+
+                    courses.add(new CourseModel(id, name, professor, venue, days, startTime, endTime));
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return courses;
     }
 
     //CODE for EXAMS

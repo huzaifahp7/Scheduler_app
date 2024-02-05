@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 Toast.makeText(getActivity(), String.format("%d/%d/%d", i2, i1+1, i), Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new Class_Schedule()) // Replace ClassFragment with your actual class fragment
+                        .replace(R.id.fragment_container, new CourseFragment()) // Replace ClassFragment with your actual class fragment
                         .commit();
             }
         });

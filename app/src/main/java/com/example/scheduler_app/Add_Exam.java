@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
@@ -24,9 +27,9 @@ public class Add_Exam extends Fragment {
 
     private FloatingActionButton done;
     private EditText addExam;
-    private EditText addLocation;
-    private EditText addDate;
-    private EditText addTime;
+    private EditText addVenue;
+    private NumberPicker numberPickerHour, numberPickerMinute, numberPickerDay, numberPickerMonth, numberPickerYear;
+    private ToggleButton AmPm;
     private MyDatabaseHelper dbHelper;
 
     @Override
@@ -35,13 +38,39 @@ public class Add_Exam extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_add__exam, container, false);
         done = root.findViewById(R.id.floatingActionButton);
-        addExam = root.findViewById(R.id.editTextUsername);
-        addLocation = root.findViewById(R.id.editTextUsername3);
-        addDate = root.findViewById(R.id.editTextUsername1);
-        addTime = root.findViewById(R.id.editTextUsername2);
+        addExam = root.findViewById(R.id.editTextExam);
+        addVenue = root.findViewById(R.id.editTextVenue);
+        AmPm = root.findViewById(R.id.toggleButtonAmPm);
+        numberPickerHour = root.findViewById(R.id.numberPickerHour);
+        numberPickerMinute = root.findViewById(R.id.numberPickerMinute);
+        numberPickerDay = root.findViewById(R.id.numberPickerDay);
+        numberPickerMonth = root.findViewById(R.id.numberPickerMonth);
+        numberPickerYear = root.findViewById(R.id.numberPickerYear);
+
+        // Configure the number pickers (example for hour and minute)
+
+        setNumberPickerFormatter(numberPickerHour);
+        setNumberPickerFormatter(numberPickerMinute);
+        setNumberPickerFormatter(numberPickerDay);
+        setNumberPickerFormatter(numberPickerMonth);
+        setNumberPickerFormatter(numberPickerYear);
+
+        numberPickerHour.setMinValue(1);
+        numberPickerHour.setMaxValue(12);
+
+        numberPickerMinute.setMinValue(0);
+        numberPickerMinute.setMaxValue(59);
+
+        numberPickerDay.setMinValue(1);
+        numberPickerDay.setMaxValue(31);
+
+        numberPickerMonth.setMinValue(1);
+        numberPickerMonth.setMaxValue(12);
+
+        numberPickerYear.setMinValue(2023);
+        numberPickerYear.setMaxValue(2026);
 
         dbHelper = new MyDatabaseHelper(getContext());
-
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,27 +79,67 @@ public class Add_Exam extends Fragment {
         });
         return root;
     }
+    private void setNumberPickerFormatter(NumberPicker numberPicker) {
+        numberPicker.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return String.format("%02d", value);
+            }
+        });
+    }
+
     public void doneClass(){
         String course = addExam.getText().toString();
-        String loc = addLocation.getText().toString();
-        String date = addDate.getText().toString();
-        String time = addTime.getText().toString();
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        String venue = addVenue.getText().toString();
+        int day = numberPickerDay.getValue();
+        int month = numberPickerMonth.getValue();
+        int year = numberPickerYear.getValue();
 
-        // Prepare the content values to be inserted
-        //Need to make separate sql table for all fragments
-        ContentValues values = new ContentValues();
-        values.put("course", course);
-        values.put("time", time);
-        values.put("date", date);
-        values.put("location", loc);
+        int hour = numberPickerHour.getValue();
+        int minute = numberPickerMinute.getValue();;
+        String ampm = AmPm.isChecked() ? "PM" : "AM";
 
-        // Insert the values into the table
-        long newRowId = database.insert("mytable", null, values);
+        String date = String.format("%04d-%02d-%02d", year, month, day);
+        String time = String.format("%02d:%02d %s", hour, minute, ampm);
 
-        // Close the database connection
-        database.close();
-        Toast.makeText(getActivity(), String.format("You have a %s Exam on %s %s at %s.", course, date, time, loc), Toast.LENGTH_SHORT).show();
-        getParentFragmentManager().popBackStack();
+
+        if (!course.isEmpty() && !venue.isEmpty() && !ampm.isEmpty()) {
+            // Add the assignment to the database
+            dbHelper.addExam(course, time, date, venue);
+            Toast.makeText(getActivity(), String.format("You have added the exam %s successfully. It is at %s %s, at %s.", course, date, time, venue), Toast.LENGTH_SHORT).show();
+            // Pop back stack to return to the previous fragment
+            getParentFragmentManager().popBackStack();
+        } else {
+            // Show a message if any field is empty
+            Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Hide the navigation bar
+        hideNavigationBar();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Show the navigation bar
+        showNavigationBar();
+    }
+
+    private void hideNavigationBar() {
+        // Assuming you're using a BottomNavigationView
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNavView);
+        if (navBar != null) {
+            navBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void showNavigationBar() {
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNavView);
+        if (navBar != null) {
+            navBar.setVisibility(View.VISIBLE);
+        }
     }
 }

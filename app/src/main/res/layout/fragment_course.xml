@@ -2,23 +2,122 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ListView
-        android:id="@+id/listViewCourses"
+    android:layout_height="match_parent"
+    android:layout_above="@id/addCourse">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#141515"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    </ListView>
+        <!-- Box for Monday -->
+        <LinearLayout
+            android:id="@+id/mondayBox"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#0CF614"
+            android:onClick="onMondayClicked"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Box for Tuesday -->
+
+        <!-- Box for Wednesday -->
+
+        <LinearLayout
+            android:id="@+id/tuesdayBox"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#FFC107"
+            android:onClick="onTuesdayClicked"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wednesdayBox"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+
+            android:background="#2196F3"
+            android:onClick="onWednesdayClicked"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Box for Thursday -->
+        <LinearLayout
+            android:id="@+id/thursdayBox"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#009688"
+            android:onClick="onThursdayClicked"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thursday"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Box for Friday -->
+        <LinearLayout
+            android:id="@+id/fridayBox"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#F40758"
+            android:onClick="onFridayClicked"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friday"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Add more views as needed -->
+
+    </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="325dp"
-        android:layout_marginBottom="108dp"
-        android:clickable="true"
+        android:layout_marginStart="324dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="115dp"
         app:srcCompat="@android:drawable/ic_input_add" />
-
-
 </RelativeLayout>

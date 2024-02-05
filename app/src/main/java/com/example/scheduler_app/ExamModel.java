@@ -7,8 +7,9 @@ public class ExamModel implements Serializable {
     private String time;
     private String location;
     private String title;
-
-    public ExamModel(String title, String date, String time, String location) {
+    private int id;
+    public ExamModel(String title, String date, String time, String location, int id) {
+        this.id = id;
         this.date = date;
         this.time = time;
         this.location = location;
@@ -36,6 +37,14 @@ public class ExamModel implements Serializable {
 
     public String getTime() {
         return time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLocation() {
