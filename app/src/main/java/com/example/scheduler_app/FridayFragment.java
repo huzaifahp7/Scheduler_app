@@ -36,7 +36,7 @@ public class FridayFragment extends Fragment {
 
     private void loadCoursesForDay(String day) {
         List<CourseModel> courses = dbHelper.getCoursesForDay(day);
-        int backgroundColor = R.color.fridayColor;
+        int backgroundColor = R.drawable.rounded_corner_friday;
         adapter = new CourseAdapter(getContext(), courses, backgroundColor);
         coursesRecyclerView.setAdapter(adapter);
     }

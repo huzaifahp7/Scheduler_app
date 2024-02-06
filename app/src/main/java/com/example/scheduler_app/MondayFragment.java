@@ -40,7 +40,7 @@ public class MondayFragment extends Fragment {
         for (CourseModel course : courses) {
             Log.d(" MondayFragment", "Course: " + course.getCourse() + ", Instructor: " + course.getInstructor() + ", Venue: " + course.getVenue() + ", Start Time: " + course.getStartTime() + ", End Time: " + course.getEndTime());
         }
-        int backgroundColor = R.color.mondayColor;
+        int backgroundColor = R.drawable.rounded_corner_monday;
 
         adapter = new CourseAdapter(getContext(), courses, backgroundColor);
         coursesRecyclerView.setAdapter(adapter);

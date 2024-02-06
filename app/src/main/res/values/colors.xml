@@ -7,9 +7,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="mondayColor">#0CF614</color>
-    <color name="tuesdayColor">#FFC107</color>
-    <color name="wednesdayColor">#2196F3</color>
-    <color name="thursdayColor">#009688</color>
-    <color name="fridayColor">#F40758</color>
+    <color name="mondayColor">#348ABF</color>
+    <color name="tuesdayColor">#9BD1F2</color>
+    <color name="wednesdayColor">#C4EEF2</color>
+    <color name="thursdayColor">#B2C9D9</color>
+    <color name="fridayColor">#E5F0FE</color>
+    <color name="Blue5">#E5F0FE</color>
+    <color name="Blue1">#348ABF</color>
+    <color name="Blue4">#B2C9D9</color>
+    <color name="Blue3">#C4EEF2</color>
+    <color name="Blue2">#9BD1F2</color>
+    <color name="mainBlue">#4C60AC</color>
+    <color name="grey">#BBBDBB</color>
+    <color name="green">#2BD43B</color>
+    <color name="red">#F83D35</color>
+    <color name="yellow">#F3D91B</color>
 </resources>

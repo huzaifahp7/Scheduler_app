@@ -1,8 +1,11 @@
 package com.example.scheduler_app;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -106,7 +110,7 @@ public class AssignmentFragment extends Fragment {
             TextView assignmentView = new TextView(getContext());
             assignmentView.setText("Course: " +  assignment.getSubject() + "\n" + "Assignment Name: " + assignment.getTitle() + " \n" + "Due date: " + assignment.getDate() + "\n" + "Due Time: " +assignment.getTime());
 
-            assignmentView.setBackgroundColor(getPriorityColor(assignment.getDate()));
+            assignmentView.setBackground(getPriorityColor(requireContext(),assignment.getDate()));
             assignmentView.setTypeface(null, Typeface.BOLD); // Set text to bold
             assignmentView.setTextColor(Color.BLACK); // Set text color
             assignmentView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
@@ -119,8 +123,15 @@ public class AssignmentFragment extends Fragment {
             assignmentView.setPadding(20, 20, 20, 20);
 
             ImageView deleteIcon = new ImageView(getContext());
-            deleteIcon.setImageResource(android.R.drawable.ic_menu_delete); // Use a trash icon here
+            deleteIcon.setImageResource(R.drawable.ic_menu_delete); // Use a trash icon here
             deleteIcon.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            ViewGroup.MarginLayoutParams layoutParames = (ViewGroup.MarginLayoutParams) deleteIcon.getLayoutParams();
+
+// Set the bottom margin
+            layoutParames.bottomMargin = 26; // Adjust the margin value as needed
+
+// Apply the updated layout parameters
+            deleteIcon.setLayoutParams(layoutParames);
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -159,9 +170,9 @@ public class AssignmentFragment extends Fragment {
         }
     }
 
-    private int getPriorityColor(String dueDate) {
+    private Drawable getPriorityColor(Context context,String dueDate) {
         if (dueDate == null || dueDate.isEmpty()) {
-            return Color.GRAY; // Default color for invalid or empty dates
+            return ContextCompat.getDrawable(context,R.drawable.rounded_corner_grey); // Default color for invalid or empty dates
         }
 
         try {
@@ -177,15 +188,15 @@ public class AssignmentFragment extends Fragment {
             long daysUntilDue = (dueCal.getTimeInMillis() - now.getTimeInMillis()) / (24 * 60 * 60 * 1000);
 
             if (daysUntilDue <= 2) {
-                return Color.RED;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_cor_red_icon);
             } else if (daysUntilDue <= 14) {
-                return Color.YELLOW;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_cor_yellow_icon);
             } else {
-                return Color.GREEN;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_cor_green_icon);
             }
         } catch (ParseException e) {
             e.printStackTrace();
-            return Color.GRAY; // Default color for parsing errors
+            return ContextCompat.getDrawable(context,R.drawable.rounded_corner_grey); // Default color for parsing errors
         }
     }
 
