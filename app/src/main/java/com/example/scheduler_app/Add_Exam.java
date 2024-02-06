@@ -18,6 +18,12 @@ import android.widget.ToggleButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Add_Exam#newInstance} factory method to
@@ -103,7 +109,7 @@ public class Add_Exam extends Fragment {
         String time = String.format("%02d:%02d %s", hour, minute, ampm);
 
 
-        if (!course.isEmpty() && !venue.isEmpty() && !ampm.isEmpty()) {
+        if (!course.isEmpty() && !venue.isEmpty() && !ampm.isEmpty()&& isInputDateValid(year, month, day) && isInputTimeValid(year, month, day, hour, minute, ampm)) {
             // Add the assignment to the database
             dbHelper.addExam(course, time, date, venue);
             Toast.makeText(getActivity(), String.format("You have added the exam %s successfully. It is at %s %s, at %s.", course, date, time, venue), Toast.LENGTH_SHORT).show();
@@ -111,7 +117,7 @@ public class Add_Exam extends Fragment {
             getParentFragmentManager().popBackStack();
         } else {
             // Show a message if any field is empty
-            Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please fill in all fields and ensure date and time are correct.", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
@@ -140,6 +146,36 @@ public class Add_Exam extends Fragment {
         BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNavView);
         if (navBar != null) {
             navBar.setVisibility(View.VISIBLE);
+        }
+    }
+    private boolean isInputDateValid(int year, int month, int day) {
+        try {
+            Calendar currentCalendar = Calendar.getInstance();
+            Calendar inputCalendar = Calendar.getInstance();
+            inputCalendar.set(year, month - 1, day); // Note: Calendar month is zero-based
+
+            return !inputCalendar.before(currentCalendar);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Function to check if the inputted time is not before the current time
+    private boolean isInputTimeValid(int year, int month, int day, int hour, int minute, String ampm) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault());
+            String inputDateTime = String.format("%04d-%02d-%02d %02d:%02d %s", year, month, day, hour, minute, ampm);
+            Date inputtedDateTime = sdf.parse(inputDateTime);
+
+            Calendar currentCalendar = Calendar.getInstance();
+            Calendar inputCalendar = Calendar.getInstance();
+            inputCalendar.setTime(inputtedDateTime);
+
+            return inputtedDateTime != null && !inputCalendar.before(currentCalendar);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
