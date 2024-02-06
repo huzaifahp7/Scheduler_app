@@ -1,9 +1,12 @@
 package com.example.scheduler_app;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -116,19 +120,13 @@ public class ExamFragment extends Fragment {
             examView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
 
-            // Style the TextView (padding, margins, textAppearance, etc.)
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 0, 0, 16);
-            examView.setLayoutParams(layoutParams);
-            examView.setPadding(20, 20, 20, 20);
-
             ImageView deleteIcon = new ImageView(getContext());
             deleteIcon.setImageResource(android.R.drawable.ic_menu_delete); // Use a trash icon here
             deleteIcon.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("AssignmentFragment", "Deleting assignment with ID: " + exam.getId());
+                    Log.d("ExamFragment", "Deleting assignment with ID: " + exam.getId());
                     dbHelper.deleteExam(exam.getId());
 
                     // Refresh the fragment's view
@@ -139,6 +137,19 @@ public class ExamFragment extends Fragment {
                     }
                 }
             });
+            ImageView editIcon = new ImageView(getContext());
+            editIcon.setImageResource(R.drawable.ic_assignment); // Replace with your pencil icon drawable
+            editIcon.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            editIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Open edit dialog for this exam
+                    openEditExamDialog(exam);
+                }
+            });
+
             examView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -158,9 +169,26 @@ public class ExamFragment extends Fragment {
                 }
             });
 
+            // Style the TextView (padding, margins, textAppearance, etc.)
+            LinearLayout iconLayout = new LinearLayout(getContext());
+            iconLayout.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams iconLayoutParam = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            iconLayout.setLayoutParams(iconLayoutParam);
+
+            iconLayout.addView(editIcon);
+            iconLayout.addView(deleteIcon);
             examsContainer.addView(examView);
-            examsContainer.addView(deleteIcon);
+            examsContainer.addView(iconLayout); // Add the layout with icons
+            LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            iconParams.setMargins(16, 16, 16, 16); // Adjust margins as needed
+            editIcon.setLayoutParams(iconParams);
+            deleteIcon.setLayoutParams(iconParams);
         }
+
     }
 
     private int getPriorityColour(String dueDate) {
@@ -192,6 +220,59 @@ public class ExamFragment extends Fragment {
             return Color.GRAY; // Default color for parsing errors
         }
     }
+    private void openEditExamDialog(final ExamModel exam) {
+        // Create an AlertDialog.Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Edit Exam");
+
+        // Set up the input fields
+        final EditText inputName = new EditText(getContext());
+        inputName.setHint("Exam Name");
+        inputName.setText(exam.getTitle());
+
+        final EditText inputLocation = new EditText(getContext());
+        inputLocation.setHint("Location");
+        inputLocation.setText(exam.getLocation());
+
+        final EditText inputDate = new EditText(getContext());
+        inputDate.setHint("Date (yyyy-MM-dd)");
+        inputDate.setText(exam.getDate());
+
+        final EditText inputTime = new EditText(getContext());
+        inputTime.setHint("Time");
+        inputTime.setText(exam.getTime());
+
+        LinearLayout layout = new LinearLayout(getContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(inputName);
+        layout.addView(inputLocation);
+        layout.addView(inputDate);
+        layout.addView(inputTime);
+        builder.setView(layout);
+
+        // Set up the buttons
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Update the exam in the database
+                MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
+                dbHelper.updateExam(exam.getId(), inputName.getText().toString(),
+                        inputTime.getText().toString(),
+                        inputDate.getText().toString(),
+                        inputLocation.getText().toString());
+                populateExams(getView()); // Refresh the list
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
 
 
     @Override

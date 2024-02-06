@@ -15,11 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class MondayFragment extends Fragment {
+public class MondayFragment extends Fragment implements CourseUpdate {
 
     private MyDatabaseHelper dbHelper;
     private RecyclerView coursesRecyclerView;
     private CourseAdapter adapter;
+    private CourseUpdate listener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,8 +43,18 @@ public class MondayFragment extends Fragment {
         }
         int backgroundColor = R.color.mondayColor;
 
-        adapter = new CourseAdapter(getContext(), courses, backgroundColor);
+        adapter = new CourseAdapter(getContext(), courses, backgroundColor, dbHelper, listener);
         coursesRecyclerView.setAdapter(adapter);
     }
+    @Override
+    public void onCourseUpdated() {
+        loadCoursesForDay("Monday");
+    }
+    private void refreshCourseList() {
+        List<CourseModel> courses = dbHelper.getCoursesForDay("Monday");
+        adapter = new CourseAdapter(getContext(), courses, R.color.mondayColor, dbHelper, listener);
+        coursesRecyclerView.setAdapter(adapter);
+    }
+
 }
 

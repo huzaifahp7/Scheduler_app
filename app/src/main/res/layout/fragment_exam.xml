@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent
     android:background="#FFFFFF">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
             android:orientation="vertical"
             android:padding="16dp">
             <!-- Dynamic assignment views will be added here -->
+
         </LinearLayout>
     </ScrollView>
 
@@ -32,4 +34,6 @@
         android:layout_marginEnd="31dp"
         android:layout_marginBottom="115dp"
         app:srcCompat="@android:drawable/ic_input_add" />
+    <!-- Add an ImageView for the pencil icon inside your exam item layout -->
+
 </RelativeLayout>

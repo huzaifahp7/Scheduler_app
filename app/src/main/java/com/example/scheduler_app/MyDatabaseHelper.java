@@ -86,13 +86,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM Course", null);
     }
-    public int updateCourse(int id, String name, String professor, String venue, String days, String startTime, String endTime) {
+    public int updateCourse(int id, String name, String professor, String venue, String startTime, String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("professor", professor);
         values.put("venue", venue);
-        values.put("days", days);
         values.put("startTime", startTime);
         values.put("endTime", endTime);
 
