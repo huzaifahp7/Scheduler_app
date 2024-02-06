@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="#141515"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -17,10 +17,11 @@
             android:id="@+id/mondayBox"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#0CF614"
+            android:background="@drawable/rounded_corner_course"
             android:onClick="onMondayClicked"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -38,10 +39,11 @@
             android:id="@+id/tuesdayBox"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#FFC107"
+            android:background="@drawable/rounded_corner_course"
             android:onClick="onTuesdayClicked"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,10 +58,11 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
 
-            android:background="#2196F3"
+            android:background="@drawable/rounded_corner_course"
             android:onClick="onWednesdayClicked"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,10 +77,11 @@
             android:id="@+id/thursdayBox"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#009688"
+            android:background="@drawable/rounded_corner_course"
             android:onClick="onThursdayClicked"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -92,7 +96,7 @@
             android:id="@+id/fridayBox"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#F40758"
+            android:background="@drawable/rounded_corner_course"
             android:onClick="onFridayClicked"
             android:orientation="horizontal"
             android:padding="16dp">
