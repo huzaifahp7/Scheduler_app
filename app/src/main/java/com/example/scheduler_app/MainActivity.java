@@ -1,5 +1,7 @@
 package com.example.scheduler_app;
 
+
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -112,26 +114,33 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     @Deprecated
+    @CallSuper
     public void onBackPressed() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
-        int homeItemId = R.id.home_menu_item; // Make sure this ID matches the one in your bottom navigation
-
-        Log.d("HI", "onBackPressed: Current selected item ID: " + bottomNavigationView.getSelectedItemId());
-        Log.d("HELLO", "onBackPressed: Home item ID: " + homeItemId);
-        Log.d("BYE", "onBackPressed: Back stack entry count: " + getSupportFragmentManager().getBackStackEntryCount());
-
-        if (bottomNavigationView.getSelectedItemId() != homeItemId &&
-                getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            Log.d("YES", "onBackPressed: Popping back stack");
-            getSupportFragmentManager().popBackStack();
+        if (currentFragment instanceof CourseFragment ||
+                currentFragment instanceof AssignmentFragment ||
+                currentFragment instanceof ExamFragment ||
+                currentFragment instanceof ToDoFragment) {
+            // Navigate to Home Fragment
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+        } else if(currentFragment instanceof MondayFragment
+                || currentFragment instanceof TuesdayFragment ||
+                currentFragment instanceof WednesdayFragment ||
+                currentFragment instanceof ThursdayFragment
+            || currentFragment instanceof FridayFragment) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new CourseFragment())
+                    .commit();
+        }
+        else if (currentFragment instanceof HomeFragment) {
+            // Exit the app if current fragment is Home
+            super.onBackPressed();
         } else {
-            Log.d("OKAY", "onBackPressed: Navigating to home or exiting");
-            if (bottomNavigationView.getSelectedItemId() != homeItemId) {
-                bottomNavigationView.setSelectedItemId(homeItemId);
-            } else {
-                super.onBackPressed();
-            }
+            // For other fragments, pop the back stack
+            getSupportFragmentManager().popBackStack();
         }
     }
 }

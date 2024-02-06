@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -105,9 +106,10 @@ public class ToDoFragment extends Fragment {
 
         for (ToDoModel todo : todos) {
             TextView todoView = new TextView(getContext());
+            Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.rubikegular);
             todoView.setText("Task: " +  todo.getName() + "\n" + "Due date: " + todo.getDate() + "\n" + "Due Time: " + todo.getTime());
             todoView.setBackground(getPriorityColor(requireContext(),todo.getDate()));
-            todoView.setTypeface(null, Typeface.BOLD); // Set text to bold
+            todoView.setTypeface(typeface, Typeface.BOLD); // Set text to bold
             todoView.setTextColor(Color.BLACK); // Set text color
             todoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             todoView.setPadding(25,5,0,5);
