@@ -14,6 +14,12 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -106,8 +112,12 @@ public class Add_Course extends Fragment {
         String endTime = formatTime(numberPickerHourEnd.getValue(), numberPickerMinuteEnd.getValue(), toggleButtonAmPmEnd.isChecked());
 
         if (!courseName.isEmpty() && !professorName.isEmpty() && !venue.isEmpty() && !daysOfWeek.toString().isEmpty()) {
-            dbHelper.addCourse(courseName, professorName, venue, daysOfWeek.toString().trim(), startTime, endTime);
-            Toast.makeText(getActivity(), "Course added successfully", Toast.LENGTH_SHORT).show();
+            if (isEndTimeValid(startTime, endTime)) {
+                dbHelper.addCourse(courseName, professorName, venue, daysOfWeek.toString().trim(), startTime, endTime);
+                Toast.makeText(getActivity(), "Course added successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "Invalid time input. Please ensure the inputted times are correct.", Toast.LENGTH_SHORT).show();
+            }
             // Navigate back
         } else {
             Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
@@ -143,6 +153,20 @@ public class Add_Course extends Fragment {
         BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNavView);
         if (navBar != null) {
             navBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    // Function to check if the end time is later than the start time
+    private boolean isEndTimeValid(String startTime, String endTime) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+            Date start = sdf.parse(startTime);
+            Date end = sdf.parse(endTime);
+
+            return start != null && end != null && end.after(start);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
