@@ -6,43 +6,16 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_above="@id/addAssignment">
 
         <LinearLayout
+            android:id="@+id/assignmentsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Dynamic day blocks -->
-            <!-- Repeat this block for each day of the week -->
-            <LinearLayout
-                android:id="@+id/dayContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Day Label" />
-
-                <!-- Dynamic list of assignments for the day -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- Repeat this TextView for each assignment -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Assignment Details" />
-                    <!-- Add more TextViews or a custom layout for each assignment -->
-
-                </LinearLayout>
-            </LinearLayout>
-            <!-- End of day block -->
+            android:orientation="vertical"
+            android:padding="16dp">
+            <!-- Dynamic assignment views will be added here -->
         </LinearLayout>
     </ScrollView>
 
@@ -50,11 +23,15 @@
         android:id="@+id/addAssignment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="325dp"
-        android:layout_marginBottom="108dp"
-        android:clickable="true"
-        app:srcCompat="@android:drawable/ic_input_add"/>
-
+        android:layout_marginStart="324dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="115dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 </RelativeLayout>
+
+
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Add_Exam">
+    tools:context=".Add_Assignment">
 
     <!-- Assignment Name -->
 
@@ -13,12 +13,12 @@
     <!-- Date Pickers -->
 
     <TextView
-        android:id="@+id/textViewExam"
+        android:id="@+id/textViewTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-light"
-        android:text="Exam:"
+        android:text="Task:"
         android:textColor="#2196F3"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -26,47 +26,19 @@
         tools:layout_editor_absoluteY="32dp" />
 
     <EditText
-        android:id="@+id/editTextExam"
+        android:id="@+id/editTextTask"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:hint="Enter the Exam's name"
+        android:hint="Enter the Task's name"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:singleLine="true"
         android:textColor="#050505"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewExam"
+        app:layout_constraintStart_toEndOf="@+id/textViewDate"
         tools:layout_editor_absoluteY="16dp" />
 
-    <TextView
-        android:id="@+id/textViewVenue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Venue:"
-        android:textColor="#2196F3"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewExam" />
-
-    <EditText
-        android:id="@+id/editTextVenue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
-        android:hint="Enter the exam's venue"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:singleLine="true"
-        android:textColor="#0F0F10"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewVenue"
-        app:layout_constraintTop_toBottomOf="@+id/editTextExam" />
 
     <TextView
         android:id="@+id/textViewDate"
@@ -75,12 +47,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="104dp"
         android:fontFamily="sans-serif-light"
-        android:text="Date:"
+        android:text="Due Date:"
         android:textColor="#2196F3"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewVenue" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTask" />
 
     <NumberPicker
         android:id="@+id/numberPickerDay"
@@ -89,7 +61,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="48dp"
         app:layout_constraintStart_toEndOf="@id/textViewDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextVenue" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTask" />
 
     <NumberPicker
         android:id="@+id/numberPickerMonth"
@@ -116,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="232dp"
-        android:text="Time:"
+        android:text="Due Time:"
         android:textColor="#2196F3"
         android:textSize="16sp"
         android:textStyle="bold"

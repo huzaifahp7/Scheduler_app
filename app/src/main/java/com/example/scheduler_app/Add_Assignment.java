@@ -23,11 +23,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * Use the {@link Add_Exam#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Add_Exam extends Fragment {
+public class Add_Assignment extends Fragment {
 
     private FloatingActionButton done;
-    private EditText addExam;
-    private EditText addVenue;
+    private EditText addAssignment;
+    private EditText addSubject;
     private NumberPicker numberPickerHour, numberPickerMinute, numberPickerDay, numberPickerMonth, numberPickerYear;
     private ToggleButton AmPm;
     private MyDatabaseHelper dbHelper;
@@ -36,10 +36,10 @@ public class Add_Exam extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_add__exam, container, false);
+        View root = inflater.inflate(R.layout.fragment_add_assignment, container, false);
         done = root.findViewById(R.id.floatingActionButton);
-        addExam = root.findViewById(R.id.editTextExam);
-        addVenue = root.findViewById(R.id.editTextVenue);
+        addAssignment = root.findViewById(R.id.editTextAssignment);
+        addSubject = root.findViewById(R.id.editTextSubject);
         AmPm = root.findViewById(R.id.toggleButtonAmPm);
         numberPickerHour = root.findViewById(R.id.numberPickerHour);
         numberPickerMinute = root.findViewById(R.id.numberPickerMinute);
@@ -89,8 +89,8 @@ public class Add_Exam extends Fragment {
     }
 
     public void doneClass(){
-        String course = addExam.getText().toString();
-        String venue = addVenue.getText().toString();
+        String course = addAssignment.getText().toString();
+        String subject = addSubject.getText().toString();
         int day = numberPickerDay.getValue();
         int month = numberPickerMonth.getValue();
         int year = numberPickerYear.getValue();
@@ -103,10 +103,10 @@ public class Add_Exam extends Fragment {
         String time = String.format("%02d:%02d %s", hour, minute, ampm);
 
 
-        if (!course.isEmpty() && !venue.isEmpty() && !ampm.isEmpty()) {
+        if (!course.isEmpty() && !subject.isEmpty() && !ampm.isEmpty()) {
             // Add the assignment to the database
-            dbHelper.addExam(course, time, date, venue);
-            Toast.makeText(getActivity(), String.format("You have added the exam %s successfully. It is at %s %s, at %s.", course, date, time, venue), Toast.LENGTH_SHORT).show();
+            dbHelper.addAssignment(course, subject, date, time);
+            Toast.makeText(getActivity(), String.format("You have added %s for %s due on %s at %s.", course, subject, date, time), Toast.LENGTH_SHORT).show();
             // Pop back stack to return to the previous fragment
             getParentFragmentManager().popBackStack();
         } else {
