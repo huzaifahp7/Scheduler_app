@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,7 +37,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class AssignmentFragment extends Fragment {
-
+    private String currentSortOrder = "date";
     private FloatingActionButton add;
     @Nullable
     @Override
@@ -46,8 +47,9 @@ public class AssignmentFragment extends Fragment {
 
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
         dbHelper.openDatabase();
-
-        populateAssignments(view);
+        view.findViewById(R.id.sortByCourse).setOnClickListener(v -> populateAssignments(view,"course"));
+        view.findViewById(R.id.sortByDate).setOnClickListener(v -> populateAssignments(view,"date"));
+        populateAssignments(view, "date");
         add = view.findViewById(R.id.addAssignment);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,10 +60,19 @@ public class AssignmentFragment extends Fragment {
         return view;
     }
 
-    private List<AssignmentModel> getAssignments() {
+    private List<AssignmentModel> getAssignments(String sortBy) {
         List<AssignmentModel> assignments = new ArrayList<>();
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
-        Cursor cursor = dbHelper.getAllAssignments();
+        currentSortOrder = sortBy;
+        String orderBy;
+        if ("course".equals(sortBy)) {
+            orderBy = "LOWER(subject) ASC"; // Sort by subject (course name), ignoring case
+        } else {
+            orderBy = "date ASC, time ASC"; // Sort by date and time
+        }
+        Cursor cursor = dbHelper.getReadableDatabase().query(
+                "Assignment", null, null, null, null, null, orderBy
+        );
 
         if (cursor.moveToFirst()) {
             do {
@@ -95,14 +106,16 @@ public class AssignmentFragment extends Fragment {
                 assignments.add(new AssignmentModel(name, subject, date, time, id));
             } while (cursor.moveToNext());
         }
+        Log.d("AssignmentFragment", "OrderBy: " + orderBy);
         cursor.close();
         return assignments;
     }
-    private void populateAssignments(View view) {
+    private void populateAssignments(View view, String sortBy) {
+        currentSortOrder = sortBy;
         LinearLayout assignmentsContainer = view.findViewById(R.id.assignmentsContainer);
         assignmentsContainer.removeAllViews(); // Clear existing views
 
-        List<AssignmentModel> assignments = getAssignments();
+        List<AssignmentModel> assignments = getAssignments(sortBy);
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
 
         for (AssignmentModel assignment : assignments) {
@@ -126,7 +139,7 @@ public class AssignmentFragment extends Fragment {
 
                     // Refresh the fragment's view
                     if (getContext() != null) {
-                        populateAssignments(getView());
+                        populateAssignments(getView(), currentSortOrder);
                     } else {
                         Log.e("AssignmentFragment", "Context or View is null");
                     }
@@ -222,7 +235,7 @@ public class AssignmentFragment extends Fragment {
                 dbHelper.updateAssignment(ass.getId(), inputName.getText().toString(),inputCourse.getText().toString(),
                         inputTime.getText().toString(),
                         inputDate.getText().toString());
-                populateAssignments(getView()); // Refresh the list
+                populateAssignments(getView(), currentSortOrder); // Refresh the list
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -271,7 +284,7 @@ public class AssignmentFragment extends Fragment {
         super.onResume();
         View view = getView();
         if (view != null) {
-            populateAssignments(view);
+            populateAssignments(view, currentSortOrder);
         }
     }
 

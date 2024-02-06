@@ -107,7 +107,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Query the database for courses on the specified day
-        Cursor cursor = db.rawQuery("SELECT * FROM Course WHERE days LIKE ?", new String[]{"%" + day + "%"});
+        Cursor cursor = db.rawQuery("SELECT * FROM Course WHERE days LIKE ? ORDER BY startTime ASC", new String[]{"%" + day + "%"});
 
 
 

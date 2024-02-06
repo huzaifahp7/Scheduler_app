@@ -40,6 +40,7 @@ import java.util.Locale;
 public class ExamFragment extends Fragment {
 
     private FloatingActionButton add;
+    private String currentSortingOrder = "date";
 
     @Nullable
     @Override
@@ -48,10 +49,11 @@ public class ExamFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_exam, container, false);
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
         dbHelper.openDatabase();
+        view.findViewById(R.id.sortByCourse).setOnClickListener(v -> populateExams(view,"course"));
+        view.findViewById(R.id.sortByDate).setOnClickListener(v -> populateExams(view,"date"));
+        populateExams(view,"date");
 
-        populateExams(view);
-
-        List<ExamModel> exams = getExams();
+        List<ExamModel> exams = getExams("date");
         add = view.findViewById(R.id.addExam);
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -63,10 +65,19 @@ public class ExamFragment extends Fragment {
 
         return view;
     }
-    private List<ExamModel> getExams() {
+    private List<ExamModel> getExams(String sortBy) {
         List<ExamModel> exams = new ArrayList<>();
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
-        Cursor cursor = dbHelper.getAllExams();
+        currentSortingOrder = sortBy;
+        String orderBy;
+        if ("course".equals(sortBy)) {
+            orderBy = "LOWER(name) ASC"; // Sort by subject (course name), ignoring case
+        } else {
+            orderBy = "date ASC, time ASC"; // Sort by date and time
+        }
+        Cursor cursor = dbHelper.getReadableDatabase().query(
+                "Exam", null, null, null, null, null, orderBy
+        );
 
         if (cursor.moveToFirst()) {
             do {
@@ -103,11 +114,11 @@ public class ExamFragment extends Fragment {
         cursor.close();
         return exams;
     }
-    private void populateExams(View view) {
+    private void populateExams(View view, String sortBy) {
         LinearLayout examsContainer = view.findViewById(R.id.examsContainer);
         examsContainer.removeAllViews(); // Clear existing views
 
-        List<ExamModel> exams = getExams();
+        List<ExamModel> exams = getExams(sortBy);
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
 
         for (ExamModel exam : exams) {
@@ -131,7 +142,7 @@ public class ExamFragment extends Fragment {
 
                     // Refresh the fragment's view
                     if (getContext() != null) {
-                        populateExams(getView());
+                        populateExams(getView(), sortBy);
                     } else {
                         Log.e("ExamFragment", "Context or View is null");
                     }
@@ -260,7 +271,7 @@ public class ExamFragment extends Fragment {
                         inputTime.getText().toString(),
                         inputDate.getText().toString(),
                         inputLocation.getText().toString());
-                populateExams(getView()); // Refresh the list
+                populateExams(getView(), currentSortingOrder); // Refresh the list
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -280,7 +291,7 @@ public class ExamFragment extends Fragment {
         super.onResume();
         View view = getView();
         if (view != null) {
-            populateExams(view);
+            populateExams(view, currentSortingOrder);
         }
     }
 
