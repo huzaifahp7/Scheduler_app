@@ -9,34 +9,60 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scheduler_app.CourseModel;
 
 import java.util.List;
 
-class CourseAdapter extends ArrayAdapter<CourseModel> {
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
     private Context context;
     private List<CourseModel> courses;
+    private int itemBackgroundColor;
 
-    public CourseAdapter(Context context, List<CourseModel> courses) {
-        super(context, 0, courses);
+    public CourseAdapter(Context context, List<CourseModel> courses, int itemBackgroundColor) {
         this.context = context;
         this.courses = courses;
+        this.itemBackgroundColor = itemBackgroundColor;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false);
+    public CourseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.course_item, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CourseAdapter.ViewHolder holder, int position) {
+        CourseModel course = courses.get(position);
+        holder.courseNameView.setText("Course: " + course.getCourse());
+        holder.instructorView.setText("Instructor: " + course.getInstructor());
+        holder.startTime.setText("Start Time: " +course.getStartTime());
+        holder.endTime.setText("End Time: " +course.getEndTime());
+        holder.venue.setText("Venue: " + course.getVenue());
+        holder.itemView.setBackgroundResource(itemBackgroundColor);
+    }
+
+    @Override
+    public int getItemCount() {
+        return courses.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView courseNameView, instructorView, startTime, endTime, venue;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            courseNameView = itemView.findViewById(R.id.course_name);
+            instructorView = itemView.findViewById(R.id.course_instructor);
+            startTime = itemView.findViewById(R.id.course_starttime);
+            endTime = itemView.findViewById(R.id.course_endtime);
+            venue = itemView.findViewById(R.id.course_venue);
         }
-        CourseModel course = getItem(position);
-        if (course != null) {
-            TextView textView = convertView.findViewById(android.R.id.text1);
-            String courseText = course.getCourse() + "\nInstructor: " + course.getInstructor() +
-                    "\nTime: " + course.getTime() + "\nLocation: " + course.getLocation();
-            textView.setText(courseText);
-        }
-        return convertView;
     }
 }
+
+
+
+

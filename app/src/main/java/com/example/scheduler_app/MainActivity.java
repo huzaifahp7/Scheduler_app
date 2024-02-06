@@ -14,7 +14,7 @@ import android.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton examButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +32,35 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.bottom_class) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new CourseFragment()) // Replace ClassFragment with your actual class fragment
+                        .addToBackStack(null)
                         .commit();
             } else if(id == R.id.home_menu_item){
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new HomeFragment())
+                        .addToBackStack(null)
                         .commit();
             } else if (id == R.id.bottom_test) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new ExamFragment())
+                        .addToBackStack(null)
                         .commit();
             } else if (id == R.id.bottom_assign) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new AssignmentFragment())
+                        .addToBackStack(null)
                         .commit();
             } else if (id == R.id.bottom_check) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new ToDoFragment()) // Use ToDoFragment as a fragment, not an activity
+                        .addToBackStack(null)
                         .commit();
             }
 
             return true;
         });
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 
         if (savedInstanceState == null) {
@@ -61,7 +69,21 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
     }
-
-    private void setSupportActionBar(Toolbar toolbar) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed(); // This will close the app as usual
+        }
+    }
+
 }

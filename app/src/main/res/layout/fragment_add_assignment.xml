@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EECAF8"
-    tools:context=".Add_Exam">
+    android:background="#C0E6F8"
+    tools:context=".Add_Assignment">
 
     <!-- Assignment Name -->
 
@@ -14,84 +14,83 @@
     <!-- Date Pickers -->
 
     <TextView
-        android:id="@+id/textViewExam"
+        android:id="@+id/textViewAssignment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="sans-serif-light"
-        android:text="Exam:"
-        android:textColor="#8E24AA"
+        android:text="Assignment:"
+        android:textColor="#2196F3"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="30dp" />
+        tools:layout_editor_absoluteY="32dp" />
 
     <EditText
-        android:id="@+id/editTextExam"
+        android:id="@+id/editTextAssignment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="56dp"
-        android:hint="Enter the Exam's name"
+        android:layout_marginStart="24dp"
+        android:hint="Enter the Assignment's name"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:singleLine="true"
         android:textColor="#050505"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewVenue"
-        app:layout_constraintStart_toEndOf="@+id/textViewExam" />
+        app:layout_constraintStart_toEndOf="@+id/textViewAssignment"
+        tools:layout_editor_absoluteY="16dp" />
 
     <TextView
-        android:id="@+id/textViewVenue"
+        android:id="@+id/textViewSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="80dp"
         android:fontFamily="sans-serif-light"
-        android:text="Venue:"
-        android:textColor="#8E24AA"
+        android:text="Subject:"
+        android:textColor="#2196F3"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewExam" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAssignment" />
 
     <EditText
-        android:id="@+id/editTextVenue"
+        android:id="@+id/editTextSubject"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="60dp"
-        android:hint="Enter the exam's venue"
+        android:hint="Enter the course's name"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:singleLine="true"
         android:textColor="#0F0F10"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewVenue"
-        app:layout_constraintTop_toBottomOf="@+id/editTextExam" />
+        app:layout_constraintStart_toEndOf="@+id/textViewSubject"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAssignment" />
 
     <TextView
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="104dp"
         android:fontFamily="sans-serif-light"
-        android:text="Date:"
-        android:textColor="#8E24AA"
+        android:text="Due Date:"
+        android:textColor="#2196F3"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewVenue" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubject" />
 
     <NumberPicker
         android:id="@+id/numberPickerDay"
         android:layout_width="51dp"
         android:layout_height="140dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="48dp"
         app:layout_constraintStart_toEndOf="@id/textViewDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextVenue" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextSubject" />
 
     <NumberPicker
         android:id="@+id/numberPickerMonth"
@@ -118,8 +117,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="232dp"
-        android:text="Time:"
-        android:textColor="#8E24AA"
+        android:text="Due Time:"
+        android:textColor="#2196F3"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -131,11 +130,11 @@
         android:id="@+id/numberPickerHour"
         android:layout_width="51dp"
         android:layout_height="140dp"
-        android:layout_marginStart="76dp"
+        android:layout_marginStart="52dp"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintStart_toEndOf="@id/textViewTime"
         app:layout_constraintTop_toBottomOf="@+id/numberPickerDay"
-        app:layout_constraintVertical_bias="0.639" />
+        app:layout_constraintVertical_bias="0.632" />
 
     <NumberPicker
         android:id="@+id/numberPickerMinute"
@@ -154,7 +153,7 @@
         android:layout_marginTop="52dp"
         android:layout_marginEnd="8dp"
         android:checked="true"
-        android:textColor="#8E24AA"
+        android:textColor="#2196F3"
         android:textOff="AM"
         android:textOn="PM"
         app:layout_constraintEnd_toEndOf="parent"
@@ -174,3 +173,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
