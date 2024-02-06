@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A8FBF5"
+    android:backgroundTint="#D8F4BB"
     tools:context=".Add_Assignment">
 
     <!-- Assignment Name -->
@@ -12,44 +14,46 @@
 
     <!-- Date Pickers -->
 
+
     <TextView
         android:id="@+id/textViewTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-light"
         android:text="Task:"
-        android:textColor="#2196F3"
-        android:textSize="16sp"
+        android:textColor="#43A047"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="32dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextTask"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="16dp"
         android:hint="Enter the Task's name"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:singleLine="true"
         android:textColor="#050505"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewDate"
-        tools:layout_editor_absoluteY="16dp" />
-
+        app:layout_constraintStart_toEndOf="@+id/textViewTask"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="164dp"
         android:fontFamily="sans-serif-light"
         android:text="Due Date:"
-        android:textColor="#2196F3"
-        android:textSize="16sp"
+        android:textColor="#43A047"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTask" />
@@ -58,8 +62,8 @@
         android:id="@+id/numberPickerDay"
         android:layout_width="51dp"
         android:layout_height="140dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="96dp"
         app:layout_constraintStart_toEndOf="@id/textViewDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextTask" />
 
@@ -86,61 +90,62 @@
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="232dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="188dp"
         android:text="Due Time:"
-        android:textColor="#2196F3"
-        android:textSize="16sp"
+        android:textColor="#43A047"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDate"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
 
     <NumberPicker
         android:id="@+id/numberPickerHour"
         android:layout_width="51dp"
         android:layout_height="140dp"
-        android:layout_marginStart="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="72dp"
         app:layout_constraintStart_toEndOf="@id/textViewTime"
-        app:layout_constraintTop_toBottomOf="@+id/numberPickerDay"
-        app:layout_constraintVertical_bias="0.632" />
+        app:layout_constraintTop_toBottomOf="@+id/numberPickerDay" />
 
     <NumberPicker
         android:id="@+id/numberPickerMinute"
         android:layout_width="51dp"
         android:layout_height="140dp"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintStart_toEndOf="@id/numberPickerHour"
-        app:layout_constraintTop_toTopOf="@+id/numberPickerHour"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/numberPickerHour" />
 
     <ToggleButton
         android:id="@+id/toggleButtonAmPm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:checked="true"
-        android:textColor="#2196F3"
+        android:textColor="#43A047"
         android:textOff="AM"
         android:textOn="PM"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.027"
         app:layout_constraintStart_toEndOf="@+id/numberPickerMinute"
-        app:layout_constraintTop_toTopOf="@+id/numberPickerMinute" />
+        app:layout_constraintTop_toTopOf="@+id/numberPickerMinute"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="?android:attr/textCheckMark"
         app:backgroundTint="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberPickerMinute"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

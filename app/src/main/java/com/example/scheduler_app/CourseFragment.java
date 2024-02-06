@@ -31,12 +31,13 @@ public class CourseFragment extends Fragment {
         LinearLayout tuesdayBox = view.findViewById(R.id.tuesdayBox);
         tuesdayBox.setOnClickListener(v -> openFragment(new TuesdayFragment()));
 
-        LinearLayout thursdayBox = view.findViewById(R.id.thursdayBox);
-        thursdayBox.setOnClickListener(v -> openFragment(new ThursdayFragment()));
+
 
         LinearLayout wednesdayBox = view.findViewById(R.id.wednesdayBox);
         wednesdayBox.setOnClickListener(v -> openFragment(new WednesdayFragment()));
 
+        LinearLayout thursdayBox = view.findViewById(R.id.thursdayBox);
+        thursdayBox.setOnClickListener(v -> openFragment(new ThursdayFragment()));
 
         LinearLayout fridayBox = view.findViewById(R.id.fridayBox);
         fridayBox.setOnClickListener(v -> openFragment(new FridayFragment()));

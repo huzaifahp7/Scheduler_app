@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EECAF8"
     tools:context=".Add_Exam">
 
     <!-- Assignment Name -->
@@ -16,39 +17,40 @@
         android:id="@+id/textViewExam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:fontFamily="sans-serif-light"
         android:text="Exam:"
-        android:textColor="#2196F3"
-        android:textSize="16sp"
+        android:textColor="#8E24AA"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="32dp" />
+        tools:layout_editor_absoluteY="30dp" />
 
     <EditText
         android:id="@+id/editTextExam"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="56dp"
         android:hint="Enter the Exam's name"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:singleLine="true"
         android:textColor="#050505"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewExam"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textViewVenue"
+        app:layout_constraintStart_toEndOf="@+id/textViewExam" />
 
     <TextView
         android:id="@+id/textViewVenue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="80dp"
         android:fontFamily="sans-serif-light"
         android:text="Venue:"
-        android:textColor="#2196F3"
-        android:textSize="16sp"
+        android:textColor="#8E24AA"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewExam" />
@@ -72,12 +74,12 @@
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="116dp"
         android:fontFamily="sans-serif-light"
         android:text="Date:"
-        android:textColor="#2196F3"
-        android:textSize="16sp"
+        android:textColor="#8E24AA"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewVenue" />
@@ -86,7 +88,7 @@
         android:id="@+id/numberPickerDay"
         android:layout_width="51dp"
         android:layout_height="140dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="48dp"
         app:layout_constraintStart_toEndOf="@id/textViewDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextVenue" />
@@ -114,11 +116,11 @@
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="232dp"
         android:text="Time:"
-        android:textColor="#2196F3"
-        android:textSize="16sp"
+        android:textColor="#8E24AA"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,11 +131,11 @@
         android:id="@+id/numberPickerHour"
         android:layout_width="51dp"
         android:layout_height="140dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="76dp"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintStart_toEndOf="@id/textViewTime"
         app:layout_constraintTop_toBottomOf="@+id/numberPickerDay"
-        app:layout_constraintVertical_bias="0.632" />
+        app:layout_constraintVertical_bias="0.639" />
 
     <NumberPicker
         android:id="@+id/numberPickerMinute"
@@ -152,7 +154,7 @@
         android:layout_marginTop="52dp"
         android:layout_marginEnd="8dp"
         android:checked="true"
-        android:textColor="#2196F3"
+        android:textColor="#8E24AA"
         android:textOff="AM"
         android:textOn="PM"
         app:layout_constraintEnd_toEndOf="parent"
