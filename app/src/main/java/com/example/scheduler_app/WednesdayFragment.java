@@ -37,7 +37,7 @@ public class WednesdayFragment extends Fragment implements CourseUpdate{
 
     private void loadCoursesForDay(String day) {
         List<CourseModel> courses = dbHelper.getCoursesForDay(day);
-        int backgroundColor = R.color.wednesdayColor;
+        int backgroundColor = R.drawable.rounded_corner_wednesday;
         adapter = new CourseAdapter(getContext(), courses, backgroundColor, dbHelper, listener);
         coursesRecyclerView.setAdapter(adapter);
     }

@@ -1,10 +1,12 @@
 package com.example.scheduler_app;
 
+import android.content.Context;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -103,15 +106,22 @@ public class ToDoFragment extends Fragment {
         for (ToDoModel todo : todos) {
             TextView todoView = new TextView(getContext());
             todoView.setText("Task: " +  todo.getName() + "\n" + "Due date: " + todo.getDate() + "\n" + "Due Time: " + todo.getTime());
-            todoView.setBackgroundColor(getPriorityColor(todo.getDate()));
+            todoView.setBackground(getPriorityColor(requireContext(),todo.getDate()));
             todoView.setTypeface(null, Typeface.BOLD); // Set text to bold
             todoView.setTextColor(Color.BLACK); // Set text color
             todoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
 
             ImageView deleteIcon = new ImageView(getContext());
-            deleteIcon.setImageResource(android.R.drawable.ic_menu_delete); // Use a trash icon here
+            deleteIcon.setImageResource(R.drawable.ic_menu_delete); // Use a trash icon here
             deleteIcon.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            ViewGroup.MarginLayoutParams layoutParames = (ViewGroup.MarginLayoutParams) deleteIcon.getLayoutParams();
+
+// Set the bottom margin
+            layoutParames.bottomMargin = 26; // Adjust the margin value as needed
+
+// Apply the updated layout parameters
+            deleteIcon.setLayoutParams(layoutParames);
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -224,9 +234,9 @@ public class ToDoFragment extends Fragment {
         builder.show();
     }
 
-    private int getPriorityColor(String dueDate) {
+    private Drawable getPriorityColor(Context context, String dueDate) {
         if (dueDate == null || dueDate.isEmpty()) {
-            return Color.GRAY; // Default color for invalid or empty dates
+            return ContextCompat.getDrawable(context,R.drawable.rounded_corner_grey); // Default color for invalid or empty dates
         }
 
         try {
@@ -242,15 +252,15 @@ public class ToDoFragment extends Fragment {
             long daysUntilDue = (dueCal.getTimeInMillis() - now.getTimeInMillis()) / (24 * 60 * 60 * 1000);
 
             if (daysUntilDue <= 2) {
-                return Color.RED;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_cor_red_icon);
             } else if (daysUntilDue <= 14) {
-                return Color.YELLOW;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_cor_yellow_icon);
             } else {
-                return Color.GREEN;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_cor_green_icon);
             }
         } catch (ParseException e) {
             e.printStackTrace();
-            return Color.GRAY; // Default color for parsing errors
+            return ContextCompat.getDrawable(context,R.drawable.rounded_corner_grey); // Default color for parsing errors
         }
     }
 

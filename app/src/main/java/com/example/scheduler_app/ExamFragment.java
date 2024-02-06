@@ -2,6 +2,11 @@ package com.example.scheduler_app;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -21,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import android.database.sqlite.SQLiteDatabase;
@@ -125,15 +131,23 @@ public class ExamFragment extends Fragment {
             TextView examView = new TextView(getContext());
             Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.rubikegular);
             examView.setText("Course: " +  exam.getTitle() + "\n"  + "Date: " + exam.getDate() + "\n" + "Time: " + exam.getTime()+ "\n" + "Venue: " + exam.getLocation());
-            examView.setBackgroundColor(getPriorityColour(exam.getDate()));
+            examView.setBackground(getPriorityColour(requireContext(),exam.getDate()));
             examView.setTypeface(typeface, Typeface.BOLD); // Set text to bold
             examView.setTextColor(Color.BLACK); // Set text color
             examView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
 
             ImageView deleteIcon = new ImageView(getContext());
-            deleteIcon.setImageResource(android.R.drawable.ic_menu_delete); // Use a trash icon here
+            deleteIcon.setImageResource(R.drawable.ic_menu_delete); // Use a trash icon here
             deleteIcon.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            ViewGroup.MarginLayoutParams layoutParames = (ViewGroup.MarginLayoutParams) deleteIcon.getLayoutParams();
+
+// Set the bottom margin
+            layoutParames.bottomMargin = 26; // Adjust the margin value as needed
+
+// Apply the updated layout parameters
+            deleteIcon.setLayoutParams(layoutParames);
+
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -202,9 +216,9 @@ public class ExamFragment extends Fragment {
 
     }
 
-    private int getPriorityColour(String dueDate) {
+    private Drawable getPriorityColour(Context context, String dueDate) {
         if (dueDate == null || dueDate.isEmpty()) {
-            return Color.GRAY; // Default color for invalid or empty dates
+            return ContextCompat.getDrawable(context,R.drawable.rounded_corner_grey); // Default color for invalid or empty dates
         }
 
         try {
@@ -220,15 +234,15 @@ public class ExamFragment extends Fragment {
             long daysUntilDue = (dueCal.getTimeInMillis() - now.getTimeInMillis()) / (24 * 60 * 60 * 1000);
 
             if (daysUntilDue <= 2) {
-                return Color.RED;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_corner_red);
             } else if (daysUntilDue <= 14) {
-                return Color.YELLOW;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_corner_yellow);
             } else {
-                return Color.GREEN;
+                return ContextCompat.getDrawable(context,R.drawable.rounded_corner_green);
             }
         } catch (ParseException e) {
             e.printStackTrace();
-            return Color.GRAY; // Default color for parsing errors
+            return ContextCompat.getDrawable(context,R.drawable.rounded_corner_grey); // Default color for parsing errors
         }
     }
     private void openEditExamDialog(final ExamModel exam) {

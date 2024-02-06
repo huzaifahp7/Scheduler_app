@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home_menu_item"
-        android:icon="@drawable/ic_home"
-        android:title="@string/home"/>
+        android:icon="@drawable/home"
+        android:title="Home"/>
     <item
         android:id="@+id/bottom_class"
-        android:icon = "@drawable/baseline_schedule_24"
-        android:title = "Class Schedule"/>
+        android:icon = "@drawable/schedule"
+        android:title = "Schedule"/>
     <item
         android:id="@+id/bottom_test"
-        android:icon = "@drawable/baseline_assessment_24"
-        android:title = "Tests"/>
+        android:icon = "@drawable/exam"
+        android:title = "Exams"/>
     <item
         android:id="@+id/bottom_check"
         android:icon = "@drawable/baseline_checklist_24"
         android:title = "To-Do"/>
     <item
         android:id="@+id/bottom_assign"
-        android:icon = "@drawable/ic_assignment"
+        android:icon = "@drawable/assignment"
         android:title = "Assignments"/>
 </menu>
