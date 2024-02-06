@@ -51,8 +51,7 @@
         android:layout_height="wrap_content"
         android:textColor="#0E0C0C"
         android:textStyle="bold"
-        android:textSize="16sp"
-        android:paddingLeft="10dp"/>
+        android:paddingLeft="10dp"
         android:textSize="16sp" />
     <LinearLayout
     android:layout_width="wrap_content"
@@ -60,10 +59,19 @@
     android:orientation="horizontal"
     android:gravity="end">
     <ImageView
+        android:id="@+id/deleteIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_delete"
+        android:paddingLeft="10dp"
+        android:paddingBottom="3dp"/>
+    <ImageView
         android:id="@+id/editIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_assignment" />
+        android:src="@drawable/ic_assignment"
+        android:paddingLeft="10dp"
+        android:paddingBottom="3dp"/>
 </LinearLayout>
 </LinearLayout>
 

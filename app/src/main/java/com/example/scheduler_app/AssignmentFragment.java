@@ -130,6 +130,7 @@ public class AssignmentFragment extends Fragment {
             assignmentView.setTypeface(null, Typeface.BOLD); // Set text to bold
             assignmentView.setTextColor(Color.BLACK); // Set text color
             assignmentView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            assignmentView.setPadding(25,5,0,5);
 
 
             ImageView deleteIcon = new ImageView(getContext());

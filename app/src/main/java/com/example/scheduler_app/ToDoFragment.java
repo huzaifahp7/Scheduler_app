@@ -110,6 +110,7 @@ public class ToDoFragment extends Fragment {
             todoView.setTypeface(null, Typeface.BOLD); // Set text to bold
             todoView.setTextColor(Color.BLACK); // Set text color
             todoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            todoView.setPadding(25,5,0,5);
 
 
             ImageView deleteIcon = new ImageView(getContext());

@@ -135,6 +135,7 @@ public class ExamFragment extends Fragment {
             examView.setTypeface(typeface, Typeface.BOLD); // Set text to bold
             examView.setTextColor(Color.BLACK); // Set text color
             examView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            examView.setPadding(25,5,0,5);
 
 
             ImageView deleteIcon = new ImageView(getContext());

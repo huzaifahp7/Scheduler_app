@@ -8,8 +8,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/addExam">
+        android:layout_height="591dp"
+        android:layout_above="@id/addExam"
+        android:layout_marginBottom="-66dp">
 
         <LinearLayout
             android:id="@+id/examsContainer"
@@ -25,20 +26,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/sortByCourse"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="10sp"
-            android:text="Sort by Course" />
-        <Button
-            android:id="@+id/sortByDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:layout_weight="1"
-            android:text="Sort by Date" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:layout_marginBottom="100dp">
+    <Button
+        android:id="@+id/sortByCourse"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="10sp"
+        android:text="Sort by Course" />
+    <Button
+        android:id="@+id/sortByDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_weight="1"
+        android:text="Sort by Date" />
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addExam"
@@ -50,7 +57,7 @@
         android:layout_marginStart="324dp"
         android:layout_marginTop="89dp"
         android:layout_marginEnd="31dp"
-        android:layout_marginBottom="115dp"
+        android:layout_marginBottom="150dp"
         app:srcCompat="@android:drawable/ic_input_add" />
     <!-- Add an ImageView for the pencil icon inside your exam item layout -->
 
