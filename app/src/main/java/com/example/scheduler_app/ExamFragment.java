@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.TextView;
@@ -107,10 +108,10 @@ public class ExamFragment extends Fragment {
 
         for (ExamModel exam : exams) {
             TextView examView = new TextView(getContext());
+            Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.rubikegular);
             examView.setText("Course: " +  exam.getTitle() + "\n"  + "Date: " + exam.getDate() + "\n" + "Time: " + exam.getTime()+ "\n" + "Venue: " + exam.getLocation());
-
             examView.setBackgroundColor(getPriorityColour(exam.getDate()));
-            examView.setTypeface(null, Typeface.BOLD); // Set text to bold
+            examView.setTypeface(typeface, Typeface.BOLD); // Set text to bold
             examView.setTextColor(Color.BLACK); // Set text color
             examView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 

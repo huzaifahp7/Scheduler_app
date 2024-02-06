@@ -20,7 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Add_Exam#newInstance} factory method to
+ * Use the {@link Add_Course #newInstance} factory method to
  * create an instance of this fragment.
  */
 public class Add_Course extends Fragment {
@@ -99,7 +99,7 @@ public class Add_Course extends Fragment {
         if (toggleButtonMonday.isChecked()) daysOfWeek.append("Monday ");
         if (toggleButtonTuesday.isChecked()) daysOfWeek.append("Tuesday ");
         if (toggleButtonWednesday.isChecked()) daysOfWeek.append("Wednesday ");
-        if (toggleButtonThursday.isChecked()) daysOfWeek.append("Thurday ");
+        if (toggleButtonThursday.isChecked()) daysOfWeek.append("Thursday ");
         if (toggleButtonFriday.isChecked()) daysOfWeek.append("Friday");
 
         String startTime = formatTime(numberPickerHourStart.getValue(), numberPickerMinuteStart.getValue(), toggleButtonAmPmStart.isChecked());
