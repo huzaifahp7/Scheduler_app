@@ -1,5 +1,7 @@
 package com.example.scheduler_app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -106,12 +109,6 @@ public class ToDoFragment extends Fragment {
             todoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
 
-            // Style the TextView (padding, margins, textAppearance, etc.)
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 0, 0, 16);
-            todoView.setLayoutParams(layoutParams);
-            todoView.setPadding(20, 20, 20, 20);
-
             ImageView deleteIcon = new ImageView(getContext());
             deleteIcon.setImageResource(android.R.drawable.ic_menu_delete); // Use a trash icon here
             deleteIcon.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -127,6 +124,18 @@ public class ToDoFragment extends Fragment {
                     } else {
                         Log.e("ToDoFragment", "Context or View is null");
                     }
+                }
+            });
+            ImageView editIcon = new ImageView(getContext());
+            editIcon.setImageResource(R.drawable.ic_assignment); // Replace with your pencil icon drawable
+            editIcon.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            editIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Open edit dialog for this exam
+                    openEditToDoDialog(todo);
                 }
             });
             todoView.setOnClickListener(new View.OnClickListener() {
@@ -148,9 +157,71 @@ public class ToDoFragment extends Fragment {
                 }
             });
 
+            LinearLayout iconLayout = new LinearLayout(getContext());
+            iconLayout.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams iconLayoutParam = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            iconLayout.setLayoutParams(iconLayoutParam);
+
+            iconLayout.addView(editIcon);
+            iconLayout.addView(deleteIcon);
             todosContainer.addView(todoView);
-            todosContainer.addView(deleteIcon);
+            todosContainer.addView(iconLayout); // Add the layout with icons
+            LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            iconParams.setMargins(16, 16, 16, 16); // Adjust margins as needed
+            editIcon.setLayoutParams(iconParams);
+            deleteIcon.setLayoutParams(iconParams);
         }
+    }
+
+    private void openEditToDoDialog(final ToDoModel todo) {
+        // Create an AlertDialog.Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Edit To Do");
+
+        // Set up the input fields
+        final EditText inputName = new EditText(getContext());
+        inputName.setHint("Task Name");
+        inputName.setText(todo.getName());
+
+        final EditText inputDate = new EditText(getContext());
+        inputDate.setHint("Due Date (yyyy-MM-dd)");
+        inputDate.setText(todo.getDate());
+
+        final EditText inputTime = new EditText(getContext());
+        inputTime.setHint("Due Time (hh-mm) AM/PM");
+        inputTime.setText(todo.getTime());
+
+        LinearLayout layout = new LinearLayout(getContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(inputName);
+        layout.addView(inputDate);
+        layout.addView(inputTime);
+        builder.setView(layout);
+
+        // Set up the buttons
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Update the exam in the database
+                MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
+                dbHelper.updateToDo(todo.getId(), inputName.getText().toString(),
+                        inputTime.getText().toString(),
+                        inputDate.getText().toString());
+                populateToDos(getView()); // Refresh the list
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     private int getPriorityColor(String dueDate) {
