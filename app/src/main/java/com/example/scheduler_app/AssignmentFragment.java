@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -125,9 +126,9 @@ public class AssignmentFragment extends Fragment {
         for (AssignmentModel assignment : assignments) {
             TextView assignmentView = new TextView(getContext());
             assignmentView.setText("Course: " +  assignment.getSubject() + "\n" + "Assignment Name: " + assignment.getTitle() + " \n" + "Due date: " + assignment.getDate() + "\n" + "Due Time: " +assignment.getTime());
-
+            Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.rubikegular);
             assignmentView.setBackground(getPriorityColor(requireContext(),assignment.getDate()));
-            assignmentView.setTypeface(null, Typeface.BOLD); // Set text to bold
+            assignmentView.setTypeface(typeface, Typeface.BOLD); // Set text to bold
             assignmentView.setTextColor(Color.BLACK); // Set text color
             assignmentView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             assignmentView.setPadding(25,5,0,5);
