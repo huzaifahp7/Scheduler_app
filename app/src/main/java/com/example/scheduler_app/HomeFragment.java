@@ -14,6 +14,10 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 public class HomeFragment extends Fragment {
 
     private CalendarView cV;
@@ -29,15 +33,57 @@ public class HomeFragment extends Fragment {
         cV = rootView.findViewById(R.id.calendarView);
         cV.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                Toast.makeText(getActivity(), String.format("%d/%d/%d", i2, i1+1, i), Toast.LENGTH_SHORT).show();
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new CourseFragment()) // Replace ClassFragment with your actual class fragment
-                        .commit();
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.set(year, month, dayOfMonth);
+                int dayOfWeek = selectedDate.get(Calendar.DAY_OF_WEEK);
+
+                Fragment dayFragment = getDayFragment(dayOfWeek);
+                if (dayFragment != null) {
+                    // Now pass any additional data you need to the fragment (like assignments/exams due)
+                    //loadAssignmentsAndExamsForDay(dayFragment, year, month, dayOfMonth);
+
+                    // Open the fragment
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, dayFragment)
+                            .commit();
+                }
             }
         });
         return rootView;
     }
+
+    private Fragment getDayFragment(int dayOfWeek) {
+        switch (dayOfWeek) {
+            case Calendar.MONDAY:
+                return new MondayFragment();
+            case Calendar.TUESDAY:
+                return new TuesdayFragment();
+            case Calendar.WEDNESDAY:
+                return new WednesdayFragment();
+            case Calendar.THURSDAY:
+                return new ThursdayFragment();
+            case Calendar.FRIDAY:
+                return new FridayFragment();
+            default:
+                return null;
+        }
+    }
+//    private void loadAssignmentsAndExamsForDay(Fragment dayFragment, int year, int month, int day) {
+//        MyDatabaseHelper dbHelper = new MyDatabaseHelper(getContext());
+//        String date = String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day);
+//
+//        // Query for assignments and exams due on this date
+//        // This is just an example, you'll need to implement these methods in your database helper
+//        List<AssignmentModel> assignmentsDue = dbHelper.getAssignmentsDueOn(date);
+//        List<ExamModel> examsDue = dbHelper.getExamsDueOn(date);
+//
+//        // Pass this data to the fragment
+//        if (dayFragment instanceof DayFragmentInterface) {
+//            ((DayFragmentInterface) dayFragment).setAssignmentsAndExams(assignmentsDue, examsDue);
+//        }
+//    }
+
 
 
     // If you need any additional setup or event handling, add it here.

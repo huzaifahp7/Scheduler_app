@@ -1,17 +1,33 @@
 package com.example.scheduler_app;
 
+import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.app.NotificationManager;
 import android.app.NotificationChannel;
 import android.os.Build;
+import android.util.Log;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+
 import androidx.core.app.NotificationCompat;
 
 public class ReminderWorker extends Worker {
@@ -151,7 +167,8 @@ public class ReminderWorker extends Worker {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.getTime());
     }
 
-    private void sendNotification(String title, String text) {
+    private void sendNotification(String title, String text){
+
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         String CHANNEL_ID = "reminder_channel_id";
 
