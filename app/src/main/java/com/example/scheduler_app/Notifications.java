@@ -42,7 +42,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Notifications extends Context {
+public class  Notifications extends Context {
     public static final String CHANNEL_ID = "scheduler_app";
     public static final int notificationId = 1;
 
