@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,9 +18,28 @@
             android:orientation="vertical"
             android:padding="16dp">
             <!-- Dynamic assignment views will be added here -->
+
         </LinearLayout>
     </ScrollView>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/sortByCourse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="Sort by Course" />
+        <Button
+            android:id="@+id/sortByDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:text="Sort by Date" />
+    </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addExam"
         android:layout_width="wrap_content"
@@ -32,4 +52,6 @@
         android:layout_marginEnd="31dp"
         android:layout_marginBottom="115dp"
         app:srcCompat="@android:drawable/ic_input_add" />
+    <!-- Add an ImageView for the pencil icon inside your exam item layout -->
+
 </RelativeLayout>
